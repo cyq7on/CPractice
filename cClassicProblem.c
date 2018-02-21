@@ -42,13 +42,46 @@ void getWanshu(int max) {
             }
         }
         if (target == 0) {
-            printf("%d是完数\n",i);
+            printf("%d是完数\n", i);
         }
+    }
+}
+
+/*题目：有n个整数，使其前面各数顺序向后移，使得最后m个数变成最前面的m个数*/
+
+void move() {
+    int n, m;
+    printf("请输入整数个数n");
+    scanf("%d", &n);
+    int a[n];
+    for (int i = 0; i < n; ++i) {
+        printf("请输入第%d个数", i + 1);
+        scanf("%d", &a[i]);
+    }
+    printf("请输入m");
+    scanf("%d", &m);
+
+    exchange(a, 0, n - m - 1);
+    exchange(a, n - m, n - 1);
+    exchange(a, 0, n - 1);
+    for (int k = 0; k < n; ++k) {
+        printf("%d\t", a[k]);
+    }
+}
+
+void exchange(int *a,int start, int end) {
+    int tmp;
+    for (int j = 0; j <= (end - start) / 2; ++j) {
+        tmp = a[end - j];
+        a[end - j] = a[start + j];
+        a[start + j] = tmp;
     }
 }
 
 void main() {
 //    getNum(90);
 
-    getWanshu(1000);
+//    getWanshu(1000);
+
+    move();
 }
