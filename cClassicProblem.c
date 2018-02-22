@@ -69,7 +69,7 @@ void move() {
     }
 }
 
-void exchange(int *a,int start, int end) {
+void exchange(int *a, int start, int end) {
     int tmp;
     for (int j = 0; j <= (end - start) / 2; ++j) {
         tmp = a[end - j];
@@ -78,10 +78,21 @@ void exchange(int *a,int start, int end) {
     }
 }
 
+/*错误的交换方式*/
+void swap(char *p, char *q) {
+    char *temp;
+    temp = p;
+    p = q;
+    q = temp;
+    printf("%s\n", p);
+    printf("%s\n", q);
+}
+
+
 void main() {
 //    getNum(90);
 
 //    getWanshu(1000);
 
-    move();
+//    move();
 }
