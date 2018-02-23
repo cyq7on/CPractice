@@ -14,6 +14,7 @@
 (3)如果n不能把k整除，则用k+1作为k的值,重复执行第一步，这里用一个while循环直到k==n跳出循环。*/
 
 #include <stdio.h>
+#include <stdlib.h>
 
 void getNum(int n) {
     printf("%d=", n);
@@ -89,10 +90,58 @@ void swap(char *p, char *q) {
 }
 
 
+/*约瑟夫问题*/
+
+//求解出圈过程
+void joseph() {
+    int n, m, i, *p = (int *) malloc(sizeof(int)), exit = 0, k = 0;
+    printf("请输入总人数n，出圈数m,以空格隔开");
+    scanf("%d %d", &n, &m);
+    for (i = 0; i < n; ++i) {
+        *(p + i) = 0;
+    }
+    i = 0;
+    //notice n - 1
+    while (exit < n - 1) {
+        if (*(p + i) == 0) {
+            k++;
+        }
+        if (k == m) {
+            k = 0;
+            exit++;
+            *(p + i) = exit;
+        }
+        i++;
+        i %= n;
+    }
+    for (i = 1; i <= n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            if (i == *(p + j)) {
+                printf("第%-3d个出列的是第%-3d人\n", i, j + 1);
+            }
+        }
+    }
+
+}
+
+//递推式求赢家
+void josephR() {
+    int n, m, i, s = 0;
+    printf("N M = ");
+    scanf("%d %d", &n, &m);
+    for (i = 2; i <= n; i++) {
+        s = (s + m) % i;
+    }
+    printf("\nThe winner is %d\n", s + 1);
+}
+
 void main() {
 //    getNum(90);
 
 //    getWanshu(1000);
 
 //    move();
+
+    joseph();
+    josephR();
 }
