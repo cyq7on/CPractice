@@ -6,7 +6,7 @@ const int length = 6;
 typedef struct stu {
     int age;
     float height;
-} stu;
+} Stu;
 
 /*int main() {
 //    冒泡排序
@@ -16,7 +16,7 @@ typedef struct stu {
     output_num(a,length,2);*//*
 
 //  test sizeof
-    *//*stu s[3];
+    *//*Stu s[3];
     printf("%d %d\n", sizeof(s[0].age), sizeof(s->height));
     printf("%d", sizeof(s));*//*
 

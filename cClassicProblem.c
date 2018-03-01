@@ -135,6 +135,7 @@ void josephR() {
     printf("\nThe winner is %d\n", s + 1);
 }
 
+/*
 void main() {
 //    getNum(90);
 
@@ -144,4 +145,4 @@ void main() {
 
     joseph();
     josephR();
-}
+}*/
