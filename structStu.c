@@ -24,6 +24,7 @@ float sort(Stu *stu) {
     return (stu + N - 1)->score;
 }
 
+/*
 void main() {
     float max;
     Stu stu[N];
@@ -38,4 +39,4 @@ void main() {
             break;
         }
     }
-}
+}*/
