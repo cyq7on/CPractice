@@ -111,7 +111,7 @@ void unionLinkList(node *head1, node *head2) {
 
     q = head2->next;
     //新建结点方式
-    while (q) {
+    /*while (q) {
         if (!find(head1, q->val)) {
             p = (node *)malloc(sizeof(node));
             p->val = q->val;
@@ -119,7 +119,21 @@ void unionLinkList(node *head1, node *head2) {
             foot = p;
         }
         q = q->next;
+    }*/
+
+    //删除结点方式
+    p = head2;
+    while (q) {
+        if (find(head1,q->val)) {
+            p->next = q->next;
+            free(q);
+            q = p->next;
+        } else{
+            p = q;
+            q = q->next;
+        }
     }
+    foot->next = head2->next;
 }
 
 void print(node *head) {
