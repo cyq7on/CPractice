@@ -83,15 +83,17 @@ void delete(node *head, float num) {
     }
 }
 
-//求交集
+//求交集并由head1返回
 void intersection(node *head1, node *head2) {
     node *p = head1->next, *pre = head1;
 
     while (p) {
         if (find(head2,p->val)) {
+            //head2里存在相同元素，直接迭代
             pre = p;
             p = p->next;
         } else{
+            //去掉当前结点并且释放内存
             pre->next = p->next;
             free(p);
             p = pre->next;
@@ -99,7 +101,7 @@ void intersection(node *head1, node *head2) {
     }
 }
 
-//求并集
+//求并集并由head1返回
 void unionLinkList(node *head1, node *head2) {
     node *foot = head1->next, *p, *q;
 
@@ -108,6 +110,7 @@ void unionLinkList(node *head1, node *head2) {
     }
 
     q = head2->next;
+    //新建结点方式
     while (q) {
         if (!find(head1, q->val)) {
             p = (node *)malloc(sizeof(node));
@@ -156,9 +159,9 @@ void main() {
     printf("\n并集：");
     print(p);
 
-    printf("\n交集：");
-    intersection(p, q);
-    print(p);
+//    printf("\n交集：");
+//    intersection(p, q);
+//    print(p);
 
     printf("\n请输入删除元素\n");
     scanf("%f", &deleteNum);
