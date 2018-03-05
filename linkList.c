@@ -3,8 +3,10 @@
 //
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 
 #define N 5
+#define esp 1e-6
 
 typedef struct node {
     float val;
@@ -39,20 +41,137 @@ node *reverseLinList(float val[N]) {
     return head;
 }
 
-void main() {
-    float val[N];
-    for (int i = 0; i < N; ++i) {
-        scanf("%f",&val[i]);
-    }
-    node *p = linkList(val)->next;
-    node *q = reverseLinList(val)->next;
+//查找元素
+int find(node *head, float num) {
+    node *p = head->next;
     while (p) {
-        printf("%4.2f->",p->val);
+        if (fabs(p->val - num) < esp) {
+            return 1;
+        }
+        p = p->next;
+    }
+    return 0;
+}
+
+//添加元素
+void add(node *head, float num) {
+    if (find(head, num)) {
+        return;
+    }
+    node *p = head->next, *pre;
+    while (p) {
+        pre = p;
+        p = p->next;
+    }
+    p = (node *) malloc(sizeof(node));
+    p->val = num;
+    p->next = NULL;
+    pre->next = p;
+}
+
+//删除元素
+void delete(node *head, float num) {
+    node *p = head->next, *pre = head;
+
+    while (p) {
+        if (fabs(p->val - num) < esp) {
+            pre->next = p->next;
+            free(p);
+        }
+        pre = p;
+        p = p->next;
+    }
+}
+
+//求交集
+void intersection(node *head1, node *head2) {
+    node *p = head1->next, *pre = head1;
+
+    while (p) {
+        if (find(head2,p->val)) {
+            pre = p;
+            p = p->next;
+        } else{
+            pre->next = p->next;
+            free(p);
+            p = pre->next;
+        }
+    }
+}
+
+//求并集
+void unionLinkList(node *head1, node *head2) {
+    node *foot = head1->next, *p, *q;
+
+    while (foot->next) {
+        foot = foot->next;
+    }
+
+    q = head2->next;
+    while (q) {
+        if (!find(head1, q->val)) {
+            p = (node *)malloc(sizeof(node));
+            p->val = q->val;
+            foot->next = p;
+            foot = p;
+        }
+        q = q->next;
+    }
+}
+
+void print(node *head) {
+    printf("\n");
+    node *p = head->next;
+    while (p) {
+        printf("%.2f->", p->val);
         p = p->next;
     }
     printf("\n");
-    while (q) {
-        printf("%4.2f->",q->val);
-        q = q->next;
+}
+
+void main() {
+    float val[N], data[N];
+    float deleteNum, addNum, findNum;
+
+    printf("\n请输入第一组数据\n");
+    for (int i = 0; i < N; ++i) {
+        scanf("%f", &val[i]);
     }
+    node *p = linkList(val);
+    print(p);
+    print(reverseLinList(val));
+
+    printf("\n请输入第二组数据\n");
+    for (int i = 0; i < N; ++i) {
+        scanf("%f", &data[i]);
+    }
+    node *q = linkList(data);
+
+    printf("\n请输入查找元素\n");
+    scanf("%f", &findNum);
+
+    printf("\n查找结果：%d\t%d\n", find(p, findNum), find(q, findNum));
+
+    unionLinkList(p, q);
+    printf("\n并集：");
+    print(p);
+
+    printf("\n交集：");
+    intersection(p, q);
+    print(p);
+
+    printf("\n请输入删除元素\n");
+    scanf("%f", &deleteNum);
+    delete(p, deleteNum);
+    delete(q, deleteNum);
+    print(p);
+    print(q);
+
+
+    printf("\n请输入添加元素\n");
+    scanf("%f", &addNum);
+    add(p, addNum);
+    add(q, addNum);
+    print(p);
+    print(q);
 }
