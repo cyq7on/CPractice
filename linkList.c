@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+#include <memory.h>
 
 #define N 5
 #define esp 1e-6
@@ -42,7 +43,7 @@ node *creatReverseLinkList(float *val) {
 }
 
 //头插法
-node * reverseLinkList(node *head) {
+node *reverseLinkList(node *head) {
     node *p = head->next;
     node *q;
     head->next = NULL;
@@ -102,11 +103,11 @@ void intersection(node *head1, node *head2) {
     node *p = head1->next, *pre = head1;
 
     while (p) {
-        if (find(head2,p->val)) {
+        if (find(head2, p->val)) {
             //head2里存在相同元素，直接迭代
             pre = p;
             p = p->next;
-        } else{
+        } else {
             //去掉当前结点并且释放内存
             pre->next = p->next;
             free(p);
@@ -138,11 +139,11 @@ void unionLinkList(node *head1, node *head2) {
     //删除结点方式
     p = head2;
     while (q) {
-        if (find(head1,q->val)) {
+        if (find(head1, q->val)) {
             p->next = q->next;
             free(q);
             q = p->next;
-        } else{
+        } else {
             p = q;
             q = q->next;
         }
@@ -160,7 +161,28 @@ void print(node *head) {
     printf("\n");
 }
 
+void test() {
+    char s1[100], s2[100];
+    int i, j = 0, k = 0, len;
+    scanf("%s", s1);
+    scanf("%s", s2);
+    len = strlen(s2);
+    for (i = 0; s1[i]; ++i) {
+        while (s1[i] != s2[j]) {
+            j++;
+        }
+        if (j >= len) {
+            s1[k++] = s1[i];
+        }
+        j = 0;
+    }
+    s1[k] = '\0';
+    printf("%s",s1);
+}
+
 void main() {
+    test();
+
     float val[N], data[N];
     float deleteNum, addNum, findNum;
 
