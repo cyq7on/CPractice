@@ -14,7 +14,7 @@ typedef struct node {
 } node;
 
 //尾插法
-node *linkList(float val[N]) {
+node *creatLinkList(float *val) {
     node *head = (node *) malloc(sizeof(node));
     node *p = head;
     for (int i = 0; i < N; ++i) {
@@ -28,7 +28,7 @@ node *linkList(float val[N]) {
 }
 
 //头插法
-node *reverseLinList(float val[N]) {
+node *creatReverseLinkList(float *val) {
     node *head = (node *) malloc(sizeof(node));
     head->next == NULL;
     node *p;
@@ -37,6 +37,20 @@ node *reverseLinList(float val[N]) {
         p->val = val[i];
         p->next = head->next;
         head->next = p;
+    }
+    return head;
+}
+
+//头插法
+node * reverseLinkList(node *head) {
+    node *p = head->next;
+    node *q;
+    head->next = NULL;
+    while (p) {
+        q = p->next;
+        p->next = head->next;
+        head->next = p;
+        p = q;
     }
     return head;
 }
@@ -146,49 +160,50 @@ void print(node *head) {
     printf("\n");
 }
 
-//void main() {
-//    float val[N], data[N];
-//    float deleteNum, addNum, findNum;
-//
-//    printf("\n请输入第一组数据\n");
-//    for (int i = 0; i < N; ++i) {
-//        scanf("%f", &val[i]);
-//    }
-//    node *p = linkList(val);
+void main() {
+    float val[N], data[N];
+    float deleteNum, addNum, findNum;
+
+    printf("\n请输入第一组数据\n");
+    for (int i = 0; i < N; ++i) {
+        scanf("%f", &val[i]);
+    }
+    node *p = creatLinkList(val);
+    print(p);
+    print(reverseLinkList(p));
+    print(creatReverseLinkList(val));
+
+    printf("\n请输入第二组数据\n");
+    for (int i = 0; i < N; ++i) {
+        scanf("%f", &data[i]);
+    }
+    node *q = creatLinkList(data);
+
+    printf("\n请输入查找元素\n");
+    scanf("%f", &findNum);
+
+    printf("\n查找结果：%d\t%d\n", find(p, findNum), find(q, findNum));
+
+    unionLinkList(p, q);
+    printf("\n并集：");
+    print(p);
+
+//    printf("\n交集：");
+//    intersection(p, q);
 //    print(p);
-//    print(reverseLinList(val));
-//
-//    printf("\n请输入第二组数据\n");
-//    for (int i = 0; i < N; ++i) {
-//        scanf("%f", &data[i]);
-//    }
-//    node *q = linkList(data);
-//
-//    printf("\n请输入查找元素\n");
-//    scanf("%f", &findNum);
-//
-//    printf("\n查找结果：%d\t%d\n", find(p, findNum), find(q, findNum));
-//
-//    unionLinkList(p, q);
-//    printf("\n并集：");
-//    print(p);
-//
-////    printf("\n交集：");
-////    intersection(p, q);
-////    print(p);
-//
-//    printf("\n请输入删除元素\n");
-//    scanf("%f", &deleteNum);
-//    delete(p, deleteNum);
-//    delete(q, deleteNum);
-//    print(p);
-//    print(q);
-//
-//
-//    printf("\n请输入添加元素\n");
-//    scanf("%f", &addNum);
-//    add(p, addNum);
-//    add(q, addNum);
-//    print(p);
-//    print(q);
-//}
+
+    printf("\n请输入删除元素\n");
+    scanf("%f", &deleteNum);
+    delete(p, deleteNum);
+    delete(q, deleteNum);
+    print(p);
+    print(q);
+
+
+    printf("\n请输入添加元素\n");
+    scanf("%f", &addNum);
+    add(p, addNum);
+    add(q, addNum);
+    print(p);
+    print(q);
+}
