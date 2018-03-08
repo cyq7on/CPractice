@@ -146,49 +146,49 @@ void print(node *head) {
     printf("\n");
 }
 
-void main() {
-    float val[N], data[N];
-    float deleteNum, addNum, findNum;
-
-    printf("\n请输入第一组数据\n");
-    for (int i = 0; i < N; ++i) {
-        scanf("%f", &val[i]);
-    }
-    node *p = linkList(val);
-    print(p);
-    print(reverseLinList(val));
-
-    printf("\n请输入第二组数据\n");
-    for (int i = 0; i < N; ++i) {
-        scanf("%f", &data[i]);
-    }
-    node *q = linkList(data);
-
-    printf("\n请输入查找元素\n");
-    scanf("%f", &findNum);
-
-    printf("\n查找结果：%d\t%d\n", find(p, findNum), find(q, findNum));
-
-    unionLinkList(p, q);
-    printf("\n并集：");
-    print(p);
-
-//    printf("\n交集：");
-//    intersection(p, q);
+//void main() {
+//    float val[N], data[N];
+//    float deleteNum, addNum, findNum;
+//
+//    printf("\n请输入第一组数据\n");
+//    for (int i = 0; i < N; ++i) {
+//        scanf("%f", &val[i]);
+//    }
+//    node *p = linkList(val);
 //    print(p);
-
-    printf("\n请输入删除元素\n");
-    scanf("%f", &deleteNum);
-    delete(p, deleteNum);
-    delete(q, deleteNum);
-    print(p);
-    print(q);
-
-
-    printf("\n请输入添加元素\n");
-    scanf("%f", &addNum);
-    add(p, addNum);
-    add(q, addNum);
-    print(p);
-    print(q);
-}
+//    print(reverseLinList(val));
+//
+//    printf("\n请输入第二组数据\n");
+//    for (int i = 0; i < N; ++i) {
+//        scanf("%f", &data[i]);
+//    }
+//    node *q = linkList(data);
+//
+//    printf("\n请输入查找元素\n");
+//    scanf("%f", &findNum);
+//
+//    printf("\n查找结果：%d\t%d\n", find(p, findNum), find(q, findNum));
+//
+//    unionLinkList(p, q);
+//    printf("\n并集：");
+//    print(p);
+//
+////    printf("\n交集：");
+////    intersection(p, q);
+////    print(p);
+//
+//    printf("\n请输入删除元素\n");
+//    scanf("%f", &deleteNum);
+//    delete(p, deleteNum);
+//    delete(q, deleteNum);
+//    print(p);
+//    print(q);
+//
+//
+//    printf("\n请输入添加元素\n");
+//    scanf("%f", &addNum);
+//    add(p, addNum);
+//    add(q, addNum);
+//    print(p);
+//    print(q);
+//}

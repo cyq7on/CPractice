@@ -135,14 +135,36 @@ void josephR() {
     printf("\nThe winner is %d\n", s + 1);
 }
 
-/*
-void main() {
+//互满数
+int factor(int n) {
+    int s = 1;
+    for (int i = 2; i < n ; ++i) {
+        if (n % i == 0) {
+            s += i;
+        }
+    }
+    return s;
+}
+
+void getFactor(int n) {
+    int f;
+    for (int i = 2; i < n; ++i) {
+        f = factor(i);
+        if (f > i && factor(f) == i) {
+            printf("%d %d为互满数\n",i,f);
+        }
+    }
+}
+
+/*void main() {
 //    getNum(90);
 
 //    getWanshu(1000);
 
 //    move();
 
-    joseph();
-    josephR();
+//    joseph();
+//    josephR();
+
+//    getFactor(10000);
 }*/
