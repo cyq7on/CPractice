@@ -161,6 +161,21 @@ void print(node *head) {
     printf("\n");
 }
 
+void moveMax(node *head) {
+    node *p = head->next,*preMax = head,*max = p,*pre = head;
+    while (p) {
+        if (max->val < p->val) {
+            max = p;
+            preMax = pre;
+        }
+        pre = p;
+        p = p->next;
+    }
+    preMax->next = max->next;
+    pre->next = max;
+    max->next = NULL;
+}
+
 void test() {
     char s1[100], s2[100];
     int i, j = 0, k = 0, len;
@@ -181,8 +196,6 @@ void test() {
 }
 
 void main() {
-    test();
-
     float val[N], data[N];
     float deleteNum, addNum, findNum;
 
@@ -191,6 +204,8 @@ void main() {
         scanf("%f", &val[i]);
     }
     node *p = creatLinkList(val);
+    print(p);
+    moveMax(p);
     print(p);
     print(reverseLinkList(p));
     print(creatReverseLinkList(val));
