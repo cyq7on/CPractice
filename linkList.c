@@ -15,7 +15,7 @@ typedef struct node {
 } node;
 
 //尾插法
-node *creatLinkList(float *val) {
+node *createLinkList(float *val) {
     node *head = (node *) malloc(sizeof(node));
     node *p = head;
     for (int i = 0; i < N; ++i) {
@@ -29,7 +29,7 @@ node *creatLinkList(float *val) {
 }
 
 //头插法
-node *creatReverseLinkList(float *val) {
+node *createReverseLinkList(float *val) {
     node *head = (node *) malloc(sizeof(node));
     head->next == NULL;
     node *p;
@@ -103,16 +103,16 @@ void intersection(node *head1, node *head2) {
     node *p = head1->next, *pre = head1;
 
     while (p) {
-        if (find(head2, p->val)) {
-            //head2里存在相同元素，直接迭代
-            pre = p;
-            p = p->next;
-        } else {
+        if (!find(head2, p->val)) {
             //去掉当前结点并且释放内存
             pre->next = p->next;
             free(p);
             p = pre->next;
+            continue;
         }
+        //head2里存在相同元素，直接迭代
+        pre = p;
+        p = p->next;
     }
 }
 
@@ -143,10 +143,11 @@ void unionLinkList(node *head1, node *head2) {
             p->next = q->next;
             free(q);
             q = p->next;
-        } else {
-            p = q;
-            q = q->next;
+            continue;
         }
+        p = q;
+        q = q->next;
+
     }
     foot->next = head2->next;
 }
@@ -162,7 +163,7 @@ void print(node *head) {
 }
 
 void moveMax(node *head) {
-    node *p = head->next,*preMax = head,*max = p,*pre = head;
+    node *p = head->next, *preMax = head, *max = p, *pre = head;
     while (p) {
         if (max->val < p->val) {
             max = p;
@@ -192,7 +193,7 @@ void test() {
         j = 0;
     }
     s1[k] = '\0';
-    printf("%s",s1);
+    printf("%s", s1);
 }
 
 void main() {
@@ -203,31 +204,33 @@ void main() {
     for (int i = 0; i < N; ++i) {
         scanf("%f", &val[i]);
     }
-    node *p = creatLinkList(val);
+    node *p = createLinkList(val);
     print(p);
-    moveMax(p);
-    print(p);
-    print(reverseLinkList(p));
-    print(creatReverseLinkList(val));
+
+//    moveMax(p);
+//    print(p);
+
+//    print(reverseLinkList(p));
+    print(createReverseLinkList(val));
 
     printf("\n请输入第二组数据\n");
     for (int i = 0; i < N; ++i) {
         scanf("%f", &data[i]);
     }
-    node *q = creatLinkList(data);
+    node *q = createLinkList(data);
 
     printf("\n请输入查找元素\n");
     scanf("%f", &findNum);
 
     printf("\n查找结果：%d\t%d\n", find(p, findNum), find(q, findNum));
 
-    unionLinkList(p, q);
-    printf("\n并集：");
-    print(p);
-
-//    printf("\n交集：");
-//    intersection(p, q);
+//    unionLinkList(p, q);
+//    printf("\n并集：");
 //    print(p);
+
+    printf("\n交集：");
+    intersection(p, q);
+    print(p);
 
     printf("\n请输入删除元素\n");
     scanf("%f", &deleteNum);
